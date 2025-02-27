@@ -440,17 +440,18 @@ with gr.Blocks(title="SteamCMD Downloader") as app:
     with gr.Row():
         progress_bar = gr.Slider(minimum=0, maximum=100, value=0, label="Download Progress")
         status_text = gr.Textbox(label="Status", value="No active downloads", lines=10)
+        refresh_button = gr.Button("Refresh Status")
     
     # Hook up events
     install_button.click(install_steamcmd_gradio, outputs=steamcmd_status)
     download_button.click(start_download, inputs=[username, password, game_input, anonymous], outputs=status_text)
     cancel_button.click(cancel_current_download, outputs=status_text)
+    refresh_button.click(update_status, outputs=status_text)
+    refresh_button.click(get_progress, outputs=progress_bar)
     
-    # Auto-update the status and progress
-    gr.Markdown("Status updates automatically every 2 seconds while downloading")
-    status_text.update(update_status, every=2)
-    progress_bar.update(get_progress, every=2)
+    # Add message about manual refresh
+    gr.Markdown("Click 'Refresh Status' to update download progress and status")
 
 # Launch the app
 if __name__ == "__main__":
-    app.launch(share=True)
+    app.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
