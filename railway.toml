@@ -1,5 +1,5 @@
 # Railway configuration
-build = { builder = "DOCKERFILE", dockerfilePath = "Dockerfile" }
+build = { builder = "DOCKERFILE", dockerfilePath = "Dockerfile.dockerfile" }
 deploy = { 
   startCommand = "python app.py",
   restartPolicyType = "ON_FAILURE",
