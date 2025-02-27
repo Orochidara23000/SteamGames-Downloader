@@ -1,12 +1,7 @@
-[build]
-builder = "NIXPACKS"
-buildCommand = "pip install -r requirements.txt"
-
-[deploy]
-startCommand = "python app.py"
-healthcheckPath = "/"
-healthcheckTimeout = 100
-
-[environments.production]
-numReplicas = 1
-port = 7860
+# Railway configuration
+build = { builder = "DOCKERFILE", dockerfilePath = "Dockerfile" }
+deploy = { 
+  startCommand = "python app.py",
+  restartPolicyType = "ON_FAILURE",
+  restartPolicyMaxRetries = 10
+}
