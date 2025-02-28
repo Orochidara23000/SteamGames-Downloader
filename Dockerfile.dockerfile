@@ -8,6 +8,11 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Create directories and install SteamCMD
+RUN mkdir -p /app/steamcmd && \
+    curl -sSL https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz | tar -xz -C /app/steamcmd && \
+    chmod +x /app/steamcmd/steamcmd.sh
+
 # Create app directory
 WORKDIR /app
 
@@ -18,11 +23,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p steamcmd games public
+# Create other necessary directories
+RUN mkdir -p games public
 
 # Expose port for Gradio
 EXPOSE 7860
 
 # Start the application
-CMD ["python", "app.py"]
+CMD ["python", "path/to/your/file.py"]
