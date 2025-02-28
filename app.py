@@ -455,4 +455,8 @@ with gr.Blocks(title="SteamCMD Downloader") as app:
 # Launch the app
 if __name__ == "__main__":
     print("Launching Gradio app...")
-    app.launch(server_name="0.0.0.0", server_port=int(os.environ.get("PORT", 7860)))
+    app.launch(
+        server_name="0.0.0.0",
+        server_port=int(os.environ.get("PORT", 7860)),
+        analytics_enabled=False
+    )
